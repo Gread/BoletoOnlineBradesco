@@ -56,7 +56,7 @@ namespace BradescoOnline
                 var mensagemFinal = signeddata.GetEncoded();                
                 var mensagemConvertidaparaBase64 = Convert.ToBase64String(mensagemFinal);                
                 
-                CriarServicoWebEEnviar("url_servico_bradesco_consta_manual", _encoding.GetBytes(mensagemConvertidaparaBase64));
+                CriarServicoWebEEnviar("url_servico_bradesco_consta_manual", encoding.GetBytes(mensagemConvertidaparaBase64));
             }
             catch (Exception ex)
             {                
