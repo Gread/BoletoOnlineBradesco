@@ -9,15 +9,18 @@ using Org.BouncyCastle.Cms;
 using Org.BouncyCastle.Crypto.Operators;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509.Store;
+using System.IO;
+using System.Net;
 
 namespace BradescoOnline
 {
     public class RemessaCobrancaOnlineService
     {        
-        private byte[] AssinarCriptografar(string data, UTF8Encoding encoding)
+        private void AssinarCriptografar(string data)
         {
             try
-            {              
+            {
+                var encoding = new UTF8Encoding();
                 var messageBytes = encoding.GetBytes(data);                
 
                 var impressaDigitalCertificado = ConfigurationManager.AppSettings["ImpressaoDigitalCertificado"];
