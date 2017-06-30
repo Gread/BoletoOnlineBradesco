@@ -36,6 +36,7 @@ namespace BradescoOnline
                 if (privateCert.PrivateKey == null)                
                     throw new Exception("chave privada não localizada no certificado.");
                 
+                //convertendo certificado para objeto que o bouncycastle conhece
                 var bouncyCastleKey = DotNetUtilities.GetKeyPair(privateCert.PrivateKey).Private;
                 var x5091 = new X509Certificate(privateCert.RawData);
                 var x509CertBouncyCastle = DotNetUtilities.FromX509Certificate(x5091);
@@ -45,17 +46,21 @@ namespace BradescoOnline
                 generator.AddSignerInfoGenerator(
                     signerInfoGeneratorBuilder.Build(new Asn1SignatureFactory("SHA256WithRSA", bouncyCastleKey),
                         x509CertBouncyCastle));
-
+                
+                //criando certstore que o bouncycastle conhece
                 IList certList = new ArrayList();
                 certList.Add(x509CertBouncyCastle);
                 var store509BouncyCastle = X509StoreFactory.Create("Certificate/Collection", new X509CollectionStoreParameters(certList));
                 generator.AddCertificates(store509BouncyCastle);
 
                 var cmsdata = new CmsProcessableByteArray(messageBytes);
+                //assina
                 var signeddata = generator.Generate(cmsdata, true);
                 var mensagemFinal = signeddata.GetEncoded();                
+                //converte para base64 que eh o formato que o serviço espera
                 var mensagemConvertidaparaBase64 = Convert.ToBase64String(mensagemFinal);                
                 
+                //chama serviço convertendo a string na base64 em bytes
                 CriarServicoWebEEnviar("url_servico_bradesco_consta_manual", encoding.GetBytes(mensagemConvertidaparaBase64));
             }
             catch (Exception ex)
