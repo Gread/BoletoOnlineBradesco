@@ -84,9 +84,9 @@ namespace BradescoOnline
             {
                 requestStream.Write(sig, 0, sig.Length);
             }
-            request.GetResponse();
+            var response = request.GetResponse();
             
-            using (var stream = responseComErro.GetResponseStream())
+            using (var stream = response.GetResponseStream())
             {
                 if (stream == null)
                     throw new ApplicationException("erro ao obter resposta");
