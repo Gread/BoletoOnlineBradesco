@@ -99,7 +99,7 @@ namespace BradescoOnline
                 // resultado FINAL aqui
                 var retorno = reader.ReadToEnd();
                 
-                JsonConvert.DeserializeObject<T>(XDocument.Parse(retorno).Root.Value);
+                var respostaAqui = JsonConvert.DeserializeObject<RetornoRemessaCobrancaBradescoJson>(XDocument.Parse(retorno).Root.Value);
             }
         }
         
