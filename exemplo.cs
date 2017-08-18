@@ -11,15 +11,18 @@ using Org.BouncyCastle.Security;
 using Org.BouncyCastle.X509.Store;
 using System.IO;
 using System.Net;
+using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace BradescoOnline
 {
     public class RemessaCobrancaOnlineService
     {        
-        private void AssinarCriptografar(string data)
+        private void AssinarCriptografar(EnvioRemessaCobrancaBradescoJson model)
         {
             try
             {
+                var data = ConverterParaJsonAspasSimples(model);
                 var encoding = new UTF8Encoding();
                 var messageBytes = encoding.GetBytes(data);                
 
@@ -95,7 +98,23 @@ namespace BradescoOnline
                 
                 // resultado FINAL aqui
                 var retorno = reader.ReadToEnd();
+                
+                JsonConvert.DeserializeObject<T>(XDocument.Parse(retorno).Root.Value);
             }
+        }
+        
+         public string ConverterParaJsonAspasSimples(EnvioRemessaCobrancaBradescoJson data)
+         {
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
+            using (var writer = new JsonTextWriter(sw))
+            {
+                writer.QuoteChar = '\"';
+
+                var ser = new JsonSerializer();
+                ser.Serialize(writer, data);
+            }
+            return sb.ToString();
         }
     }
 }
