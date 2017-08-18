@@ -14,22 +14,7 @@ namespace RemessaCobrancaOnline.Service.Bradesco.Boleto
 
         public IEnumerable<string> Criticas(EnvioRemessaCobrancaBradescoDto entidade)
         {
-            if (EstaVazio(entidade.IdentificadorExterno))
-                yield return "IdentificadorExterno obrigatório.";
-
-            if (EstaVazio(entidade.LoginUsuario))
-                yield return "LoginUsuario obrigatório.";
-
-            if (entidade.FormaCobrancaId != 1)
-                yield return "FormaCobrancaId não suportada pelo componente de remessa de cobrança para o Bradesco.";
-
-            if ((byte)entidade.InstituicaoFinanceira != 1)
-                yield return "InstituicaoFinanceira informada precisa ser o bradesco.";
-
-            if (entidade.RemessaCobranca == null)
-                yield return "Dados da remessa não informados.";
-            else
-            {
+            
                 if (EstaVazio(entidade.RemessaCobranca.bairroPagador))
                     yield return "Campo bairroPagador é obrigatório";
 
@@ -251,7 +236,7 @@ namespace RemessaCobrancaOnline.Service.Bradesco.Boleto
 
                 if (!EstaVazio(entidade.RemessaCobranca.endEletronicoSacadorAvalista) && entidade.RemessaCobranca.endEletronicoSacadorAvalista.Length > 70)
                     yield return "Campo endEletronicoSacadorAvalista precisa ter tamanho máximo de 70";
-            }
+            
         }
 
         private bool EstaVazio(string param)
