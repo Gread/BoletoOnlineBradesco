@@ -22,6 +22,15 @@ namespace BradescoOnline
         {
             try
             {
+                
+                //exemplo validacao
+                var validador = new ValidarModelo();
+                var criticas = validador.Criticas(model);
+                if (criticas.Any())
+                {
+                    return;
+                }
+                
                 var data = ConverterParaJsonAspasSimples(model);
                 var encoding = new UTF8Encoding();
                 var messageBytes = encoding.GetBytes(data);                
