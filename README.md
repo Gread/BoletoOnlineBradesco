@@ -6,6 +6,7 @@ Pré-Requisitos:
 
 - Certificado tipo A1 e-cpf ou e-cnpj com chave privada emitido por autoridade participante do ICP-Brasil
 - Biblioteca Bouncy Castle: http://www.bouncycastle.org/csharp/index.html
+- Biblioteca Newtonsoft.Json
 - JSON com aspas duplas
 
 Erros comuns:
