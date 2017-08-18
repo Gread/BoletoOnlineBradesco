@@ -1,5 +1,7 @@
 # BoletoOnlineBradesco
 
+Estas classes não representam uma solução final, foi um copy and paste de várias classes em uma só (exemplo.cs) no próprio editor do github na tentativa de ajudar alguém. Assim que possível irei criar uma solução funcional.
+
 Código em c# para registro de títulos de cobrança no banco Bradesco com assinatura digital utilizando o padrão PKCS#7 com o algoritmo de assinatura RSA2048 e de criptografia SHA256;
 
 Pré-Requisitos: 
